@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+import { createClient, createServiceClient } from '@/lib/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(req: NextRequest) {
@@ -6,19 +6,19 @@ export async function POST(req: NextRequest) {
 
   const { data: { user }, error: authError } = await supabase.auth.getUser()
   if (authError || !user) {
-    return NextResponse.json({ error: '認証が必要です' }, { status: 401 })
+    return NextResponse.json({ code: 'authentication_required' }, { status: 401 })
   }
 
   const { name, bio, rights_confirmed, bank, is_minor, parent_consent_name, parent_consent_contact } = await req.json()
 
   if (!name || typeof name !== 'string' || name.trim().length === 0) {
-    return NextResponse.json({ error: 'アーティスト名は必須です' }, { status: 400 })
+    return NextResponse.json({ code: 'artist_name_required' }, { status: 400 })
   }
   if (name.trim().length > 100) {
-    return NextResponse.json({ error: 'アーティスト名は100文字以内です' }, { status: 400 })
+    return NextResponse.json({ code: 'artist_name_too_long' }, { status: 400 })
   }
   if (rights_confirmed !== true) {
-    return NextResponse.json({ error: '権利確認への同意が必要です' }, { status: 400 })
+    return NextResponse.json({ code: 'rights_required' }, { status: 400 })
   }
   if (
     !bank ||
@@ -28,17 +28,16 @@ export async function POST(req: NextRequest) {
     typeof bank.account_number !== 'string' || !bank.account_number.trim() ||
     typeof bank.account_holder_name !== 'string' || !bank.account_holder_name.trim()
   ) {
-    return NextResponse.json({ error: '出金先の銀行口座情報は必須です' }, { status: 400 })
+    return NextResponse.json({ code: 'bank_required' }, { status: 400 })
   }
   if (
     is_minor === true &&
     (typeof parent_consent_name !== 'string' || !parent_consent_name.trim() ||
      typeof parent_consent_contact !== 'string' || !parent_consent_contact.trim())
   ) {
-    return NextResponse.json({ error: '未成年の場合は保護者の氏名・連絡先が必須です' }, { status: 400 })
+    return NextResponse.json({ code: 'guardian_required' }, { status: 400 })
   }
 
-  // 既に登録済みか確認
   const { data: existing } = await supabase
     .from('artists')
     .select('id')
@@ -46,10 +45,11 @@ export async function POST(req: NextRequest) {
     .single()
 
   if (existing) {
-    return NextResponse.json({ error: 'すでにアーティスト登録済みです' }, { status: 409 })
+    return NextResponse.json({ code: 'artist_already_registered' }, { status: 409 })
   }
 
-  const { data: artist, error } = await supabase
+  const service = createServiceClient()
+  const { data: artist, error } = await service
     .from('artists')
     .insert({
       user_id: user.id,
@@ -58,18 +58,25 @@ export async function POST(req: NextRequest) {
       review_status: 'pending',
       rights_confirmed: true,
       rights_confirmed_at: new Date().toISOString(),
-      is_minor: is_minor === true,
-      parent_consent_name: is_minor === true ? parent_consent_name.trim() : null,
-      parent_consent_contact: is_minor === true ? parent_consent_contact.trim() : null,
     })
     .select('id, name, review_status')
     .single()
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    return NextResponse.json({ code: 'artist_registration_failed' }, { status: 500 })
   }
 
-  const { error: bankError } = await supabase.from('artist_bank_accounts').insert({
+  const { error: consentError } = await service.from('artist_guardian_consents').insert({
+    artist_id: artist.id,
+    is_minor: is_minor === true,
+    parent_consent_name: is_minor === true ? parent_consent_name.trim() : null,
+    parent_consent_contact: is_minor === true ? parent_consent_contact.trim() : null,
+  })
+  if (consentError) {
+    return NextResponse.json({ code: 'artist_registration_failed' }, { status: 500 })
+  }
+
+  const { error: bankError } = await service.from('artist_bank_accounts').insert({
     artist_id: artist.id,
     bank_name: bank.bank_name.trim(),
     branch_name: bank.branch_name.trim(),
@@ -79,7 +86,7 @@ export async function POST(req: NextRequest) {
   })
 
   if (bankError) {
-    return NextResponse.json({ error: bankError.message }, { status: 500 })
+    return NextResponse.json({ code: 'artist_registration_failed' }, { status: 500 })
   }
 
   return NextResponse.json({ ok: true, artist })

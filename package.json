@@ -7,8 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "typecheck": "tsc --noEmit",
     "test": "jest",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "sbom": "npm sbom --package-lock-only --sbom-type=application --sbom-format=cyclonedx > sbom.cdx.json && npm sbom --package-lock-only --sbom-type=application --sbom-format=spdx > sbom.spdx.json"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.106.0",
@@ -19,7 +21,8 @@
     "@supabase/ssr": "^0.12.0",
     "@supabase/supabase-js": "^2.108.2",
     "@upstash/redis": "^1.38.0",
-    "next": "16.2.9",
+    "next": "16.4.6",
+    "next-intl": "^4.14.5",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "stripe": "^22.3.0"
@@ -33,10 +36,13 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.2.9",
+    "eslint-config-next": "16.3.3",
     "jest": "^30.4.2",
     "tailwindcss": "^4",
     "ts-jest": "^29.4.11",
     "typescript": "^5"
+  },
+  "overrides": {
+    "baseline-browser-mapping": "2.11.22"
   }
 }

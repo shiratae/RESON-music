@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
+import { normalizeTrackCredits } from '@/lib/music/credits'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ albumId: string }> }) {
@@ -17,16 +18,25 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ albu
 
   const { data: tracks } = await supabase
     .from('tracks')
-    .select('id, title, duration_sec, track_number, cumulative_plays, ai_generated')
+    .select(`
+      id, title, duration_sec, track_number, cumulative_plays, ai_generated,
+      recording_type, content_category,
+      artists ( id, name ),
+      track_credits ( id, artist_id, display_name, role, display_order, artists ( id, name ) )
+    `)
     .eq('album_id', albumId)
     .eq('review_status', 'approved')
     .order('track_number', { ascending: true, nullsFirst: false })
 
-  const totalDurationSec = (tracks ?? []).reduce((sum, t) => sum + t.duration_sec, 0)
+  const normalizedTracks = (tracks ?? []).map((track) => {
+    const { track_credits, ...rest } = track
+    return { ...rest, credits: normalizeTrackCredits(track_credits) }
+  })
+  const totalDurationSec = normalizedTracks.reduce((sum, t) => sum + t.duration_sec, 0)
 
   return NextResponse.json({
     album,
-    tracks: tracks ?? [],
+    tracks: normalizedTracks,
     total_duration_sec: totalDurationSec,
   })
 }

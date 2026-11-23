@@ -1,0 +1,68 @@
+name: 決済・会計チェック
+
+on:
+  pull_request:
+    paths:
+      - 'app/api/distribution/**'
+      - 'app/api/stripe/**'
+      - 'app/api/supports/**'
+      - 'lib/payment/**'
+      - 'supabase/migrations/**'
+      - '__tests__/payment/**'
+      - '__tests__/sql/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'jest.config.cjs'
+      - 'tsconfig.json'
+      - '.github/workflows/payment-accounting-checks.yml'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: payment-accounting-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  regression:
+    name: 回帰・型・DB migration
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - name: ソース取得
+        uses: actions/checkout@v4
+      - name: Node.js設定
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: 依存関係インストール
+        run: npm ci
+      - name: Support+単体回帰テスト
+        run: npm test -- --runInBand __tests__/payment/support-plus.test.ts
+      - name: TypeScript型検査
+        run: npx tsc --noEmit
+      - name: Support+会計migration統合テスト
+        env:
+          PGPASSWORD: postgres
+        run: |
+          docker run --rm --network host \
+            -v "$PWD:/workspace" -w /workspace \
+            -e PGPASSWORD="$PGPASSWORD" \
+            postgres:16-alpine \
+            psql -h 127.0.0.1 -U postgres -d postgres \
+            -v ON_ERROR_STOP=1 \
+            -f __tests__/sql/support-plus-ledger.sql

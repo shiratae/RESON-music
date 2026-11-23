@@ -47,6 +47,22 @@ body {
   font-family: var(--font-body), "Noto Sans JP", sans-serif;
 }
 
+/* キーボード利用時に現在位置を常に識別できるようにする。 */
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* 動きに敏感な利用者には、画面遷移やホバー演出を最小化する。 */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 .font-display {
   font-family: var(--font-display), "Zen Kaku Gothic New", sans-serif;
 }

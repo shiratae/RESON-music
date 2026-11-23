@@ -1,10 +1,11 @@
 import { createServiceClient } from '@/lib/supabase/server'
+import { hasValidCronAuthorization } from '@/lib/cron-auth'
 import { NextRequest, NextResponse } from 'next/server'
 
 // 管理者専用エンドポイント（アーティスト登録審査の承認/却下・手動運用を前提とした最小実装）
 export async function POST(req: NextRequest) {
   const authHeader = req.headers.get('authorization')
-  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+  if (!hasValidCronAuthorization(authHeader)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 

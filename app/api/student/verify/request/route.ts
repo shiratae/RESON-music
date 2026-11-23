@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
-import { isEdJpEmail, generateVerificationCode, codeExpiresAt } from '@/lib/student/verify'
+import { isEdJpEmail, generateVerificationCode, hashVerificationCode, codeExpiresAt } from '@/lib/student/verify'
 import { sendEmail } from '@/lib/email'
+import { createServiceClient } from '@/lib/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(req: NextRequest) {
@@ -18,10 +19,11 @@ export async function POST(req: NextRequest) {
   const now = new Date()
   const code = generateVerificationCode()
 
-  const { error } = await supabase.from('student_verifications').insert({
+  const service = createServiceClient()
+  const { error } = await service.from('student_verifications').insert({
     user_id: user.id,
     school_email,
-    code,
+    code_hash: hashVerificationCode(code),
     expires_at: codeExpiresAt(now).toISOString(),
   })
 

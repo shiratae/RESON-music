@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { PaymentConfirmModal } from './PaymentConfirmModal'
 
 interface BoostStatus {
@@ -11,6 +12,7 @@ interface BoostStatus {
 }
 
 export function BoostButton({ trackId }: { trackId: string }) {
+  const t = useTranslations('Player.boost')
   const [status, setStatus] = useState<BoostStatus | null>(null)
   const [boosting, setBoosting] = useState(false)
   const [error, setError] = useState('')
@@ -33,7 +35,7 @@ export function BoostButton({ trackId }: { trackId: string }) {
     })
     const data = await res.json()
     setBoosting(false)
-    if (!res.ok) { setError(data.error); return }
+    if (!res.ok) { setError(t('failed')); return }
 
     if (data.type === 'free') {
       setJustBoosted(true)
@@ -62,20 +64,20 @@ export function BoostButton({ trackId }: { trackId: string }) {
       <button
         onClick={boost}
         disabled={boosting || status.remaining <= 0}
-        title="ブーストハート（本気で推している楽曲への応援表明）"
+        title={t('title')}
         className="flex items-center gap-1 rounded-full border border-zinc-700 px-3 py-1 text-xs hover:border-zinc-400 disabled:opacity-40"
       >
-        🚀 {justBoosted ? 'ブースト済み' : 'ブースト'}
+        🚀 {justBoosted ? t('boosted') : t('boost')}
       </button>
       <span className="text-xs text-zinc-500">
-        今月残り{status.remaining}回（無料{status.free_remaining}回・追加分は次回請求と合算）
+        {t('remaining', { remaining: status.remaining, freeRemaining: status.free_remaining })}
       </span>
       {error && <span className="text-xs text-red-400">{error}</span>}
 
       {clientSecret && (
         <PaymentConfirmModal
           clientSecret={clientSecret}
-          title={`追加ブースト（¥${status.price_yen}）`}
+          title={t('paymentTitle', { amount: status.price_yen })}
           onSuccess={onPaidSuccess}
           onClose={() => setClientSecret(null)}
         />

@@ -1,4 +1,4 @@
-import { isEdJpEmail, generateVerificationCode, codeExpiresAt, isCodeExpired } from '@/lib/student/verify'
+import { isEdJpEmail, generateVerificationCode, hashVerificationCode, codeExpiresAt, isCodeExpired } from '@/lib/student/verify'
 
 describe('isEdJpEmail', () => {
   test('.ed.jp なら true', () => {
@@ -17,6 +17,14 @@ describe('generateVerificationCode', () => {
   test('6桁の数字文字列を返す', () => {
     const code = generateVerificationCode()
     expect(code).toMatch(/^\d{6}$/)
+  })
+})
+
+describe('hashVerificationCode', () => {
+  test('認証コードを一方向ハッシュに変換する', () => {
+    expect(hashVerificationCode('123456')).toHaveLength(64)
+    expect(hashVerificationCode('123456')).not.toBe('123456')
+    expect(hashVerificationCode('123456')).toBe(hashVerificationCode('123456'))
   })
 })
 

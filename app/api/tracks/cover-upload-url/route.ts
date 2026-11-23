@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: '認証が必要です' }, { status: 401 })
   }
 
-  const { track_id, content_type } = await req.json()
+  const { track_id, content_type, content_length } = await req.json()
 
   const ext = getImageExt(content_type)
   if (!ext) {
@@ -17,6 +17,9 @@ export async function POST(req: NextRequest) {
   }
   if (!track_id) {
     return NextResponse.json({ error: 'track_id は必須です' }, { status: 400 })
+  }
+  if (!Number.isSafeInteger(content_length) || content_length < 1 || content_length > 10 * 1024 * 1024) {
+    return NextResponse.json({ error: '画像サイズは1〜10MBで指定してください' }, { status: 400 })
   }
 
   const { data: track } = await supabase
@@ -41,7 +44,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: updateError.message }, { status: 500 })
   }
 
-  const uploadUrl = await getUploadUrl(r2Key, content_type)
+  const uploadUrl = await getUploadUrl(r2Key, content_type, content_length)
 
   return NextResponse.json({ upload_url: uploadUrl, r2_key: r2Key })
 }

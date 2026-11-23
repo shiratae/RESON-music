@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 
 export type RepeatMode = 'off' | 'all' | 'one'
 
@@ -25,22 +25,27 @@ export function usePlayerQueue<T extends Track>(baseTracks: T[]) {
   const [shuffleOn, setShuffleOn] = useState(false)
   const [repeatMode, setRepeatMode] = useState<RepeatMode>('off')
   const [queue, setQueue] = useState<T[]>([])
-  const shuffleOrderRef = useRef<number[]>([])
+  const [shuffleOrder, setShuffleOrder] = useState<number[]>([])
 
-  if (shuffleOn && shuffleOrderRef.current.length !== baseTracks.length) {
-    shuffleOrderRef.current = shuffleIndices(baseTracks.length)
-  }
+  // 楽曲数が変わった直後も、描画中にstate/refを書き換えず有効な並びを導出する。
+  // 次回のシャッフル操作・リピート周回時にはstateへ確定する。
+  const activeShuffleOrder = useMemo(() => {
+    if (!shuffleOn) return []
+    return shuffleOrder.length === baseTracks.length
+      ? shuffleOrder
+      : shuffleIndices(baseTracks.length)
+  }, [baseTracks.length, shuffleOn, shuffleOrder])
 
   const orderPos = useMemo(() => {
     if (!shuffleOn) return baseIndex
-    const pos = shuffleOrderRef.current.indexOf(baseIndex)
+    const pos = activeShuffleOrder.indexOf(baseIndex)
     return pos < 0 ? 0 : pos
-  }, [shuffleOn, baseIndex])
+  }, [shuffleOn, baseIndex, activeShuffleOrder])
 
   const current: T | null = queue[0] ?? baseTracks[baseIndex] ?? null
 
   function toggleShuffle() {
-    if (!shuffleOn) shuffleOrderRef.current = shuffleIndices(baseTracks.length)
+    if (!shuffleOn) setShuffleOrder(shuffleIndices(baseTracks.length))
     setShuffleOn((v) => !v)
   }
 
@@ -79,11 +84,12 @@ export function usePlayerQueue<T extends Track>(baseTracks: T[]) {
       return
     }
     const nextPos = orderPos + 1
-    if (nextPos < shuffleOrderRef.current.length) {
-      setBaseIndex(shuffleOrderRef.current[nextPos])
+    if (nextPos < activeShuffleOrder.length) {
+      setBaseIndex(activeShuffleOrder[nextPos])
     } else if (repeatMode === 'all') {
-      shuffleOrderRef.current = shuffleIndices(baseTracks.length)
-      setBaseIndex(shuffleOrderRef.current[0])
+      const nextOrder = shuffleIndices(baseTracks.length)
+      setShuffleOrder(nextOrder)
+      setBaseIndex(nextOrder[0])
     }
   }
 
@@ -93,14 +99,14 @@ export function usePlayerQueue<T extends Track>(baseTracks: T[]) {
       return
     }
     const prevPos = Math.max(orderPos - 1, 0)
-    setBaseIndex(shuffleOrderRef.current[prevPos])
+    setBaseIndex(activeShuffleOrder[prevPos])
   }
 
   const hasNext =
     queue.length > 0 ||
     repeatMode !== 'off' ||
     (!shuffleOn && baseIndex + 1 < baseTracks.length) ||
-    (shuffleOn && orderPos + 1 < shuffleOrderRef.current.length)
+    (shuffleOn && orderPos + 1 < activeShuffleOrder.length)
 
   return {
     current,

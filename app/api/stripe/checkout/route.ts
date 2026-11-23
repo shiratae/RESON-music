@@ -43,8 +43,9 @@ export async function POST(req: NextRequest) {
   // ペアレンタル決済：保護者が紐付けられている場合は、決済（Stripe顧客・カード）は
   // 保護者側に対して行い、プラン付与（metadata.supabase_user_id）は本人のまま行う
   const parentUserId = (userData as { parent_user_id?: string })?.parent_user_id
-  const service = parentUserId ? await createServiceClient() : null
-  const payerClient = service ?? supabase
+  // stripe_customer_id is a server-managed field. Always use the service client for payer lookup/update.
+  const service = await createServiceClient()
+  const payerClient = service
   const payerId = parentUserId ?? user.id
 
   const { data: payerData } = payerId === user.id

@@ -1,5 +1,7 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+EU向け提供の準備状況と公開前の確認事項: [docs/eu-readiness.md](docs/eu-readiness.md)
+
 ## Getting Started
 
 First, run the development server:

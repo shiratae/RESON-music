@@ -1,9 +1,11 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { BoostButton } from './BoostButton'
 import { SupportButton } from './SupportButton'
 import { SupportGraph } from './SupportGraph'
+import { formatTrackArtistLine, type TrackCredit } from '@/lib/music/credits'
 import type { RepeatMode } from '@/lib/player/queue'
 
 interface Track {
@@ -11,6 +13,7 @@ interface Track {
   title: string
   duration_sec: number
   artists: { name: string } | null
+  credits?: TrackCredit[]
 }
 
 interface PlayerControls {
@@ -41,6 +44,7 @@ function formatTime(sec: number) {
 const NORMALIZE_STORAGE_KEY = 'reson_normalize_audio'
 
 export function Player({ track, onEnded, nextTrackId, controls }: PlayerProps) {
+  const t = useTranslations('Player')
   const audioRef = useRef<HTMLAudioElement>(null)
   const preloadRef = useRef<HTMLAudioElement>(null)
   const [playing, setPlaying] = useState(false)
@@ -221,7 +225,9 @@ export function Player({ track, onEnded, nextTrackId, controls }: PlayerProps) {
       {/* トラック情報 */}
       <div>
         <p className="font-semibold truncate">{track.title}</p>
-        <p className="text-sm text-zinc-400">{track.artists?.name ?? '不明なアーティスト'}</p>
+        <p className="text-sm text-zinc-400">
+          {formatTrackArtistLine(track.artists?.name, track.credits, t('unknownArtist'))}
+        </p>
       </div>
 
       {/* シークバー */}
@@ -232,6 +238,7 @@ export function Player({ track, onEnded, nextTrackId, controls }: PlayerProps) {
           max={duration}
           value={currentTime}
           onChange={seek}
+          aria-label={t('seekPosition')}
           className="w-full accent-white h-1"
         />
         <div className="flex justify-between text-xs text-zinc-500">
@@ -246,7 +253,7 @@ export function Player({ track, onEnded, nextTrackId, controls }: PlayerProps) {
           <button
             onClick={controls.onToggleShuffle}
             disabled={!controls.onToggleShuffle}
-            title="シャッフル"
+            title={t('shuffle')}
             className={`text-sm ${controls.shuffleOn ? 'text-white' : 'text-zinc-500'} hover:text-white disabled:opacity-30 transition`}
           >
             🔀
@@ -256,7 +263,7 @@ export function Player({ track, onEnded, nextTrackId, controls }: PlayerProps) {
           <button
             onClick={controls.onPrev}
             disabled={!controls.onPrev || controls.hasPrev === false}
-            title="前の曲"
+            title={t('previous')}
             className="text-lg text-zinc-300 hover:text-white disabled:opacity-30 transition"
           >
             ⏮
@@ -265,7 +272,7 @@ export function Player({ track, onEnded, nextTrackId, controls }: PlayerProps) {
         <button
           onClick={togglePlay}
           className="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center hover:bg-zinc-200 transition text-lg"
-          aria-label={playing ? '一時停止' : '再生'}
+          aria-label={playing ? t('pause') : t('play')}
         >
           {playing ? '⏸' : '▶'}
         </button>
@@ -273,7 +280,7 @@ export function Player({ track, onEnded, nextTrackId, controls }: PlayerProps) {
           <button
             onClick={controls.onNext}
             disabled={!controls.onNext || controls.hasNext === false}
-            title="次の曲"
+            title={t('next')}
             className="text-lg text-zinc-300 hover:text-white disabled:opacity-30 transition"
           >
             ⏭
@@ -283,7 +290,7 @@ export function Player({ track, onEnded, nextTrackId, controls }: PlayerProps) {
           <button
             onClick={controls.onCycleRepeat}
             disabled={!controls.onCycleRepeat}
-            title="リピート"
+            title={t('repeat')}
             className={`text-sm ${controls.repeatMode !== 'off' ? 'text-white' : 'text-zinc-500'} hover:text-white disabled:opacity-30 transition`}
           >
             {controls.repeatMode === 'one' ? '🔂' : '🔁'}
@@ -292,7 +299,7 @@ export function Player({ track, onEnded, nextTrackId, controls }: PlayerProps) {
       </div>
 
       {controls?.queueCount ? (
-        <p className="text-center text-xs text-zinc-500">次に再生するキュー: {controls.queueCount}曲</p>
+        <p className="text-center text-xs text-zinc-500">{t('queue', { count: controls.queueCount })}</p>
       ) : null}
 
       {/* プログレス表示 */}
@@ -304,12 +311,12 @@ export function Player({ track, onEnded, nextTrackId, controls }: PlayerProps) {
       <div className="flex justify-center gap-2">
         <button
           onClick={toggleNormalize}
-          title="曲間の音量差を自動で抑える（簡易ノーマライズ）"
+          title={t('normalizeTitle')}
           className={`text-xs rounded-full border px-3 py-1 transition ${
             normalizeOn ? 'border-white text-white' : 'border-zinc-700 text-zinc-500 hover:border-zinc-500'
           }`}
         >
-          🎚️ ノーマライズ{normalizeOn ? 'ON' : 'OFF'}
+          {normalizeOn ? t('normalizeOn') : t('normalizeOff')}
         </button>
         <button
           onClick={toggleLyrics}
@@ -317,18 +324,18 @@ export function Player({ track, onEnded, nextTrackId, controls }: PlayerProps) {
             lyricsOpen ? 'border-white text-white' : 'border-zinc-700 text-zinc-500 hover:border-zinc-500'
           }`}
         >
-          📝 歌詞
+          {t('lyrics')}
         </button>
       </div>
 
       {lyricsOpen && (
         <div className="rounded-lg border border-zinc-800 bg-zinc-950 p-4 max-h-64 overflow-y-auto">
           {lyrics === undefined ? (
-            <p className="text-xs text-zinc-500">読み込み中…</p>
+            <p className="text-xs text-zinc-500">{t('loading')}</p>
           ) : lyrics ? (
             <p className="text-sm text-zinc-300 whitespace-pre-wrap">{lyrics}</p>
           ) : (
-            <p className="text-xs text-zinc-500">歌詞は登録されていません</p>
+            <p className="text-xs text-zinc-500">{t('noLyrics')}</p>
           )}
         </div>
       )}

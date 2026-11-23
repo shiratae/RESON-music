@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+import { createClient, createServiceClient } from '@/lib/supabase/server'
 import { calcWeight, calcSecFactor } from '@/lib/distribution'
 import { checkPlayEvent } from '@/lib/fraud'
 import { NextRequest, NextResponse } from 'next/server'
@@ -17,6 +17,7 @@ export async function POST(
     return NextResponse.json({ error: '認証が必要です' }, { status: 401 })
   }
 
+  const service = await createServiceClient()
   const { trackId } = await params
   const { played_sec, completed } = await req.json()
   const ipAddress = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? req.headers.get('x-real-ip')
@@ -41,7 +42,7 @@ export async function POST(
   }
 
   // 直前の再生ログから極端に短い間隔での連投を拒否（機械的な大量送信対策）
-  const { data: lastEvent } = await supabase
+  const { data: lastEvent } = await service
     .from('play_events')
     .select('created_at')
     .eq('track_id', trackId)
@@ -69,7 +70,7 @@ export async function POST(
   const isCompleted = completed ?? false
 
   // play_events は INSERT のみ（UPDATE 禁止）
-  await supabase.from('play_events').insert({
+  const { error: insertError } = await service.from('play_events').insert({
     track_id: trackId,
     user_id: user.id,
     user_plan: plan,
@@ -80,9 +81,12 @@ export async function POST(
     sec_factor,
     ip_address: ipAddress,
   })
+  if (insertError) {
+    return NextResponse.json({ error: '再生ログの記録に失敗しました' }, { status: 500 })
+  }
 
   // 不正検知の簡易チェック（フラグが立った再生は分配計算から除外される）
-  await checkPlayEvent(supabase, {
+  await checkPlayEvent(service, {
     trackId,
     userId: user.id,
     playedSec: played_sec,

@@ -1,4 +1,5 @@
 import { createServiceClient } from '@/lib/supabase/server'
+import { hasValidCronAuthorization } from '@/lib/cron-auth'
 import { runFraudBatch } from '@/lib/fraud'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -6,7 +7,7 @@ import { NextRequest, NextResponse } from 'next/server'
 // 定期的に再走査する（同一楽曲連投・異常完聴率は再生ログ受信時に即時チェック済み）。
 export async function POST(req: NextRequest) {
   const authHeader = req.headers.get('authorization')
-  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+  if (!hasValidCronAuthorization(authHeader)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 

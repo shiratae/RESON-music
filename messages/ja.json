@@ -1,0 +1,1173 @@
+{
+  "Common": {
+    "appName": "RESON",
+    "language": {
+      "ja": "日本語",
+      "en": "英語",
+      "switchToEnglish": "英語に切り替える",
+      "switchToJapanese": "日本語に切り替える"
+    }
+  },
+  "Landing": {
+    "nav": {
+      "about": "思想",
+      "pricing": "料金",
+      "artists": "アーティスト",
+      "login": "ログイン",
+      "start": "無料で始める"
+    },
+    "hero": {
+      "title": "聴くことが、そのまま <highlight>音楽文化</highlight> を育てる。",
+      "description": "RESONは再生数ではなく「熱量」（応援率・完聴率・リピート率）で収益を分配するサブスクです。知名度ではなく相性で音楽と出会い、感動した人が任意で感謝を返せる仕組みを目指しています。",
+      "listen": "音楽を聴く",
+      "learnMore": "仕組みを見る",
+      "note": "クレジットカード不要・登録は1分",
+      "trending": "熱量が高まっている楽曲",
+      "completion": "完聴率 {value}%",
+      "viewAll": "すべての楽曲を見る →"
+    },
+    "about": {
+      "title": "上位1%より、99%が報われる設計。",
+      "paragraph1": "既存サービスは再生数の上位アーティストに収益が集中しがちです。RESONは熱量スコア（再生時間・応援率・完聴率）で分配することで、知名度のないインディーズ・新人アーティストにもチャンスが生まれる構造を意図しています。",
+      "paragraph2": "分配の計算式はすべて公開されており、アーティストは自分のスコアと収益を自分で検証できます。"
+    },
+    "features": {
+      "distribution": {
+        "title": "熱量で分配",
+        "desc": "再生数ではなく、応援率・完聴率・リピート率から算出した「熱量」で収益を分配します。"
+      },
+      "formula": {
+        "title": "計算式を常時公開",
+        "desc": "分配の計算式はパブリックページで常時公開。アーティストは自分のスコアを検証できます。"
+      },
+      "discovery": {
+        "title": "相性で発見する",
+        "desc": "知名度ではなく、聴く人との相性で音楽と出会う発見性の設計。"
+      },
+      "gratitude": {
+        "title": "感謝を返せる設計",
+        "desc": "感動した人が任意で応援できる、強制ではない投げ銭の仕組み。"
+      }
+    },
+    "pricing": {
+      "title": "料金プラン",
+      "perMonth": "/月",
+      "student": "中高生の方は Student プラン（{price}・.ed.jp認証）もご利用いただけます。",
+      "plans": {
+        "free": {
+          "tag": "まずは無料で",
+          "features": {
+            "hours": "月15時間まで再生",
+            "ads": "広告あり"
+          },
+          "cta": "無料で始める"
+        },
+        "standard": {
+          "tag": "いちばん人気",
+          "features": {
+            "unlimited": "無制限再生",
+            "noAds": "広告なし",
+            "support": "応援・投げ銭"
+          },
+          "cta": "Standardで始める"
+        },
+        "support": {
+          "tag": "アーティストを支える",
+          "features": {
+            "quality": "高音質再生",
+            "bonus": "応援ボーナス",
+            "fee": "月間投げ銭手数料3.6%"
+          },
+          "cta": "Support+で始める"
+        }
+      }
+    },
+    "artists": {
+      "title": "アーティストのあなたへ。",
+      "description": "累計100再生を超えると分配対象になります。計算式はすべて公開されているので、自分のスコアと収益を自分で検証できます。",
+      "register": "アーティスト登録",
+      "distribution": "分配の仕組みを読む"
+    },
+    "footer": {
+      "privacy": "個人データの取扱い"
+    }
+  },
+  "Auth": {
+    "common": {
+      "email": "メールアドレス",
+      "password": "パスワード",
+      "passwordConfirm": "パスワード（確認）",
+      "passwordMin": "8文字以上",
+      "back": "戻る"
+    },
+    "login": {
+      "title": "ログイン",
+      "submitting": "ログイン中…",
+      "submit": "ログイン",
+      "forgot": "パスワードを忘れた場合",
+      "noAccount": "アカウントをお持ちでない方は",
+      "register": "新規登録",
+      "failed": "ログインに失敗しました。メールアドレスとパスワードを確認してください。"
+    },
+    "register": {
+      "title": "新規登録",
+      "validation": {
+        "passwordMin": "パスワードは8文字以上で入力してください",
+        "passwordMismatch": "パスワードが一致しません",
+        "accountFailed": "登録を完了できませんでした。時間をおいて再試行してください。",
+        "artistFailed": "登録申請を完了できませんでした。時間をおいて再試行してください。",
+        "network": "通信に失敗しました。接続を確認してもう一度お試しください。",
+        "rightsRequired": "権利確認への同意が必要です",
+        "parentRequired": "未成年の場合は保護者の氏名・連絡先が必要です",
+        "invalidEmail": "メールアドレスの形式が正しくありません",
+        "authRequired": "アーティスト登録にはログインが必要です",
+        "artistNameRequired": "アーティスト名は必須です",
+        "artistNameTooLong": "アーティスト名は100文字以内です",
+        "bankRequired": "出金先の銀行口座情報は必須です",
+        "alreadyRegistered": "すでにアーティスト登録済みです"
+      },
+      "account": {
+        "creating": "登録中…",
+        "create": "アカウントを作成",
+        "privacyBefore": "登録前に",
+        "privacyLink": "個人データの取扱い",
+        "privacyAfter": "をご確認ください。",
+        "existing": "すでにアカウントをお持ちの方は",
+        "login": "ログイン"
+      },
+      "role": {
+        "question": "RESONをどう使いますか？",
+        "listenerTitle": "リスナーとして始める",
+        "listenerDescription": "楽曲を聴いて応援する。あとからいつでもアーティスト登録できます",
+        "artistTitle": "アーティストとして始める",
+        "artistDescription": "楽曲をアップロードして配信する（審査・出金先の登録があります）"
+      },
+      "confirmEmail": {
+        "title": "確認メールを送信しました",
+        "message": "{email} に届いた確認リンクをクリックしてください。確認後、ログインしてください。",
+        "artistContinuation": "ログイン後、ホーム画面から「アーティストとして登録する」を選んでアーティスト登録を続けられます。",
+        "login": "ログインへ"
+      },
+      "artist": {
+        "name": "アーティスト名",
+        "namePlaceholder": "あなたの名前・グループ名",
+        "bio": "自己紹介（任意）",
+        "bioPlaceholder": "どんな音楽を作っているか、活動拠点など",
+        "next": "次へ（出金先の登録）"
+      },
+      "bank": {
+        "description": "分配金・出金の受け取り先として使用します。口座名義は登録者本人の氏名と一致させてください。",
+        "bankName": "銀行名",
+        "branchName": "支店名",
+        "accountType": "口座種別",
+        "ordinary": "普通",
+        "checking": "当座",
+        "accountNumber": "口座番号",
+        "holderName": "口座名義（カナ）",
+        "holderPlaceholder": "例: ヤマダ タロウ",
+        "next": "次へ（権利確認）"
+      },
+      "rights": {
+        "intro": "アップロードする楽曲について、以下を確認してください。",
+        "item1": "自身が著作権・実演者の権利を有する、または権利者から許諾を得ている楽曲のみをアップロードします",
+        "item2": "第三者の権利を侵害するコンテンツ（無許諾サンプリング・カバー等）は登録しません",
+        "item3": "登録した銀行口座情報が正確であることを確認しました",
+        "agree": "上記の内容に同意します",
+        "minor": "未成年です（保護者の同意が必要です）",
+        "parentName": "保護者の氏名",
+        "parentContact": "保護者の連絡先",
+        "parentContactPlaceholder": "保護者の連絡先（電話番号 or メールアドレス）",
+        "parentNotice": "保護者本人が本登録内容（著作権確認・銀行口座情報を含む）に同意していることを確認してください。",
+        "submitting": "登録中…",
+        "submit": "登録を申請する"
+      },
+      "done": {
+        "title": "登録申請を受け付けました",
+        "description": "現在審査中です。審査完了まで楽曲の配信開始をお待ちください。アップロード自体は審査結果を待たずに行えます。",
+        "dashboard": "ダッシュボードへ"
+      },
+      "steps": {
+        "account": "アカウント",
+        "profile": "プロフィール",
+        "bank": "出金先",
+        "rights": "権利確認"
+      },
+      "standaloneTitle": "アーティスト登録"
+    },
+    "resetRequest": {
+      "title": "パスワードの再設定",
+      "sent": "{email} にパスワード再設定用のリンクを送信しました。メール内のリンクから再設定を完了してください。",
+      "back": "ログインへ戻る",
+      "helper": "登録済みのメールアドレスに再設定用のリンクを送信します",
+      "sending": "送信中…",
+      "send": "再設定リンクを送信",
+      "failed": "再設定リンクを送信できませんでした。メールアドレスを確認してもう一度お試しください。"
+    },
+    "resetConfirm": {
+      "title": "新しいパスワードの設定",
+      "validation": {
+        "passwordMin": "パスワードは8文字以上で入力してください",
+        "passwordMismatch": "パスワードが一致しません"
+      },
+      "checking": "リンクを確認しています…メールのリンクから直接開いてください。",
+      "newPassword": "新しいパスワード",
+      "newPasswordConfirm": "新しいパスワード（確認）",
+      "updating": "更新中…",
+      "update": "パスワードを更新する",
+      "failed": "パスワードを更新できませんでした。もう一度お試しください。"
+    },
+    "devLogin": {
+      "title": "開発者用ログイン（電話番号認証なし）",
+      "loggingIn": "ログイン中…",
+      "login": "ログイン",
+      "notice": "このページは開発・検証専用です。アカウントは /api/dev/seed-account（CRON_SECRET認証）で作成します。",
+      "failed": "開発者ログインに失敗しました。認証情報を確認してもう一度お試しください。"
+    }
+  },
+  "Metadata": {
+    "description": "聴くことが、そのまま音楽文化を育てるサブスク"
+  },
+  "Home": {
+    "nav": {
+      "home": "ホーム",
+      "search": "さがす",
+      "explore": "探索",
+      "feed": "フィード",
+      "library": "ライブラリ",
+      "playlists": "プレイリスト",
+      "notifications": "通知",
+      "wrapped": "年間まとめ",
+      "curators": "キュレーター",
+      "boostRanking": "週間ブースト",
+      "messages": "メッセージ"
+    },
+    "mainNavigation": "メインナビゲーション",
+    "mobileNavigation": "モバイルナビゲーション",
+    "buildLibraryTitle": "ライブラリを作ろう",
+    "buildLibraryDescription": "楽曲をアップロードして配信を始める",
+    "inviteFriends": "友人を招待する →",
+    "communities": "コミュニティ →",
+    "events": "ライブ情報 →",
+    "profile": "音楽人格・プロフィール →",
+    "forArtists": "アーティストの方へ →",
+    "searchPlaceholder": "アーティスト・楽曲・気分で探す",
+    "pricing": "料金",
+    "upload": "+ アップロード",
+    "registerArtist": "アーティストとして登録する",
+    "loading": "読み込み中…",
+    "noTracks": "楽曲がありません",
+    "uploadFirst": "最初の楽曲をアップロード",
+    "forYou": {
+      "title": "あなたへのおすすめ",
+      "description": "よく聴いているアーティストの熱量が高い楽曲を優先表示",
+      "frequentArtist": "よく聴くアーティスト",
+      "completion": "完聴率 {value}%"
+    },
+    "heat": {
+      "title": "熱量が高まっている楽曲",
+      "description": "直近14日間の再生時間・応援率・完聴率から算出した熱量スコアが高い順",
+      "stats": "完聴率 {completion}% ・ 応援率 {support}%"
+    },
+    "featuredArtists": "注目のアーティスト",
+    "explore": {
+      "title": "探索モード",
+      "viewAll": "すべて見る →",
+      "description": "再生数 100〜5,000 の楽曲だけ。知名度ではなく相性で出会う"
+    },
+    "allTracks": "すべての楽曲",
+    "unknownArtist": "不明",
+    "addNextTitle": "次に再生するキューへ追加",
+    "addQueue": "+キュー"
+  },
+  "Library": {
+    "title": "マイライブラリ",
+    "home": "ホームへ",
+    "description": "❤️で応援した曲を集約しています",
+    "loading": "読み込み中…",
+    "empty": "まだ❤️した曲がありません",
+    "unknownArtist": "不明",
+    "addQueueTitle": "キューへ追加",
+    "addQueue": "+キュー"
+  },
+  "Theme": {
+    "switchToLight": "ライトモードに切り替え",
+    "switchToDark": "ダークモードに切り替え"
+  },
+  "Player": {
+    "unknownArtist": "不明なアーティスト",
+    "seekPosition": "再生位置",
+    "shuffle": "シャッフル",
+    "previous": "前の曲",
+    "pause": "一時停止",
+    "play": "再生",
+    "next": "次の曲",
+    "repeat": "リピート",
+    "queue": "次に再生するキュー: {count}曲",
+    "normalizeTitle": "曲間の音量差を自動で抑える（簡易ノーマライズ）",
+    "normalizeOn": "🎚️ ノーマライズON",
+    "normalizeOff": "🎚️ ノーマライズOFF",
+    "lyrics": "📝 歌詞",
+    "loading": "読み込み中…",
+    "noLyrics": "歌詞は登録されていません",
+    "support": {
+      "supportTitle": "応援する（❤️・無制限・無料）",
+      "supported": "応援しました",
+      "support": "応援",
+      "tipTitle": "投げ銭（最低100円）",
+      "sent": "送りました",
+      "tip": "投げ銭",
+      "dialogTitle": "投げ銭する",
+      "closeDialog": "投げ銭ダイアログを閉じる",
+      "preparing": "準備中…",
+      "sendAmount": "¥{amount} を送る",
+      "paymentTitle": "投げ銭（¥{amount}）",
+      "failed": "応援の処理に失敗しました。もう一度お試しください。"
+    },
+    "boost": {
+      "title": "ブーストハート（本気で推している楽曲への応援表明）",
+      "boosted": "ブースト済み",
+      "boost": "ブースト",
+      "remaining": "今月残り{remaining}回（無料{freeRemaining}回・追加分は次回請求と合算）",
+      "paymentTitle": "追加ブースト（¥{amount}）",
+      "failed": "ブーストできませんでした。もう一度お試しください。"
+    },
+    "supportGraph": {
+      "anonymous": "名無しのリスナー",
+      "separator": "、",
+      "extra": " ほか{count}人",
+      "following": "フォロー中の{names}{extra}が応援しています",
+      "total": "{count}人が応援しています"
+    }
+  },
+  "Payment": {
+    "closeDialog": "決済ダイアログを閉じる",
+    "failed": "決済に失敗しました",
+    "processing": "処理中…",
+    "pay": "支払う"
+  },
+  "Search": {
+    "title": "文脈検索は準備中です",
+    "description": "「夜に聴きたい曲」のような自然な言葉で楽曲を探せる機能を準備しています。それまでは楽曲名での検索をご利用ください。",
+    "backHome": "ホームへ戻る",
+    "tryExplore": "探索モードを試す",
+    "catalogTitle": "楽曲を検索",
+    "catalogBack": "ホームへ",
+    "catalogLabel": "楽曲・アーティスト・作品を検索",
+    "catalogPlaceholder": "楽曲・アーティスト・作品・キャラクターで検索",
+    "catalogHint": "feat.参加者、カバー元、アニメ・ゲームなどの関連作品も検索できます。",
+    "catalogLoading": "検索中…",
+    "catalogEmpty": "該当する楽曲が見つかりません",
+    "catalogPrompt": "検索語を入力してください",
+    "unknownArtist": "不明なアーティスト"
+  },
+  "Explore": {
+    "backHome": "ホームへ戻る",
+    "title": "探索モード",
+    "description": "再生数 100〜5,000 の楽曲だけ。知名度ではなく相性で出会う発見モード。聴いたことのあるジャンルに近い楽曲を優先して表示しています。",
+    "loading": "読み込み中…",
+    "emptyTitle": "探索モード対象の楽曲がまだありません",
+    "emptyDescription": "再生数100〜5,000の楽曲が増えると表示されます",
+    "unknownArtist": "不明",
+    "plays": "{count, number}回再生"
+  },
+  "Feed": {
+    "backHome": "ホームへ戻る",
+    "title": "フィード",
+    "description": "好きになる → 語る → つながる → 支える。リスナー・アーティストの投稿が並びます。",
+    "postContentLabel": "投稿内容",
+    "postPlaceholder": "いま聴いている音楽について語る…",
+    "removeAttachedTrack": "添付した楽曲を外す",
+    "attachSearchLabel": "投稿に添付する楽曲を検索",
+    "attachSearchPlaceholder": "曲を検索して貼付…",
+    "unknownArtist": "不明",
+    "posting": "投稿中…",
+    "post": "投稿する",
+    "loading": "読み込み中…",
+    "empty": "まだ投稿がありません",
+    "listener": "リスナー",
+    "postMenu": "投稿メニューを開く",
+    "reportPrompt": "報告理由を入力してください（500文字以内）",
+    "reported": "報告しました",
+    "blockConfirm": "このユーザーをブロックしますか？",
+    "report": "🚩 報告する",
+    "block": "🚫 ブロックする",
+    "liked": "❤️ いいね済み",
+    "like": "🤍 いいね",
+    "comments": "💬 コメント",
+    "commentLabel": "コメント本文",
+    "commentPlaceholder": "コメントする…",
+    "send": "送信",
+    "postFailed": "投稿できませんでした。もう一度お試しください。"
+  },
+  "ArtistSupporters": {
+    "title": "支援者への感謝",
+    "description": "あなたを応援してくれた方々です。感謝の気持ちを込めて、日々の投稿や音楽で応えてください。",
+    "dashboard": "ダッシュボードへ",
+    "loading": "読み込み中…",
+    "empty": "まだ支援者はいません。楽曲を届け続けましょう。",
+    "anonymous": "名無しのリスナー",
+    "loadFailed": "支援者を取得できませんでした。"
+  },
+  "ArtistReport": {
+    "loading": "読み込み中…",
+    "artistRequired": "アーティスト登録が必要です",
+    "register": "登録する",
+    "title": "月次レポート",
+    "dashboard": "ダッシュボードへ",
+    "empty": "まだ分配履歴がありません。楽曲が100再生を超えると分配対象になります。",
+    "distributionResult": "{month} の分配結果",
+    "playTimeScore": "再生時間スコア",
+    "playTimeFormula": "SUM(再生秒数 × プラン重み係数 × 秒数係数) / 3600",
+    "playTimeNote": "プラン重み: Support+ 1.3 / Standard 1.0 / Student 0.7 / Free 0.4 / AI生成楽曲は0.1に固定",
+    "supportRate": "応援率",
+    "supportFormula": "(応援数 + ブーストハート数 × 2.0) / 有効再生数",
+    "supportNote": "有効再生数は再生秒数係数 > 0（30秒以上再生）のもののみ集計",
+    "completionRate": "完聴率",
+    "completionFormula": "完聴数 / 有効再生数",
+    "rawFormula": "raw_score = 再生時間スコア×0.4 + 応援率×0.35 + 完聴率×0.25",
+    "distributionFormula": "分配額 = 月間プール × (このアーティストのraw_score / 全アーティストのraw_score合計)",
+    "tipsRevenue": "投げ銭収益（別計算・分配プールを経由しない直接受取）: ¥{amount, number}",
+    "totalReceived": "累計受取額（分配 + 投げ銭）",
+    "tracksTitle": "楽曲別ステータス",
+    "tracksDescription": "cumulative_plays が100再生を超えた楽曲のみ分配対象（in_distribution = true）になります。",
+    "noTracks": "まだ楽曲がありません",
+    "pending": "審査中",
+    "rejected": "却下",
+    "eligible": "分配対象（{count, number}再生）",
+    "progress": "{count, number}/100再生",
+    "eligibleCount": "分配対象楽曲数: {eligible, number} / {total, number}",
+    "pricingLink": "計算式・プール構成の全体はこちらで常時公開しています"
+  },
+  "PrivacyRequests": {
+    "types": {
+      "access": "保有データの開示",
+      "portability": "データの移転用コピー",
+      "erasure": "データ・アカウントの削除",
+      "rectification": "データの訂正",
+      "restriction": "処理の制限",
+      "objection": "処理への異議"
+    },
+    "status": {
+      "received": "受付済み",
+      "inProgress": "確認中",
+      "completed": "回答済み",
+      "declined": "対応できない理由を回答済み"
+    },
+    "user": {
+      "fetchFailed": "取得に失敗しました",
+      "sendFailed": "送信できませんでした",
+      "accepted": "請求を受け付けました。担当者が内容を確認します。",
+      "backSettings": "← 設定に戻る",
+      "title": "個人データに関する請求",
+      "description": "開示、移転用コピー、削除、訂正、処理の制限・異議をここから請求できます。請求は自動実行されません。本人確認、他者の権利や法令上の保存義務を確認して回答します。原則として受け付けから1か月以内に回答します。",
+      "type": "請求の種類",
+      "details": "詳細・対象データ（任意）",
+      "detailsHelp": "パスワードや決済カード番号は入力しないでください。",
+      "sending": "送信中…",
+      "send": "請求を送信する",
+      "historyAria": "過去の請求",
+      "historyTitle": "請求の履歴",
+      "empty": "請求はまだありません。",
+      "receivedAt": "{date} 受付"
+    },
+    "admin": {
+      "fetchFailed": "取得できませんでした",
+      "updateFailed": "更新できませんでした",
+      "responseRequired": "回答または対応できない理由を入力してください",
+      "backDashboard": "← 審査ダッシュボード",
+      "title": "個人データ請求の対応",
+      "description": "受付から原則1か月以内に確認・回答してください。回答済みへの変更は実際の対応後に行います。",
+      "empty": "請求はありません。",
+      "user": "利用者: {id}",
+      "receivedTarget": "受付: {received} / 目安: {target}",
+      "response": "回答: {response}",
+      "responseLabel": "利用者への回答",
+      "markInProgress": "確認中にする",
+      "complete": "対応・回答済みにする",
+      "decline": "理由を付けて対応不可"
+    }
+  },
+  "Album": {
+    "releaseType": {
+      "single": "シングル",
+      "ep": "EP",
+      "album": "アルバム"
+    },
+    "loading": "読み込み中…",
+    "notFound": "アルバムが見つかりません",
+    "backHome": "← ホームへ",
+    "unknownArtist": "不明なアーティスト",
+    "duration": "{minutes}分{seconds}秒",
+    "summary": "{count, number}曲・合計 {duration}",
+    "addQueueTitle": "次に再生するキューへ追加",
+    "addQueue": "+キュー"
+  },
+  "BoostRanking": {
+    "title": "週間ブーストランキング🚀",
+    "home": "ホームへ",
+    "description": "先週比の伸び率が高い曲（累計再生数500以上）が対象です。絶対的なブースト数ではなく、今まさに勢いのある曲を発見できます。",
+    "loading": "読み込み中…",
+    "empty": "まだランキングがありません",
+    "unknownArtist": "不明",
+    "weekly": "今週🚀{current, number}（先週{previous, number}）"
+  },
+  "Communities": {
+    "backHome": "ホームへ戻る",
+    "title": "ジャンル別コミュニティ",
+    "description": "好きなジャンルに参加して、専用フィードで語り合えます。",
+    "loading": "読み込み中…",
+    "members": "{count, number}人が参加中",
+    "feed": "フィードへ",
+    "joined": "参加中",
+    "join": "参加する"
+  },
+  "Curators": {
+    "title": "キュレーターランク",
+    "home": "ホームへ",
+    "description": "まだ無名だった楽曲に早く応援し、後にその楽曲が伸びた場合にスコアが加算される「先見性」の指標です。",
+    "loading": "読み込み中…",
+    "empty": "まだランキングがありません",
+    "anonymous": "名無しのリスナー"
+  },
+  "Events": {
+    "backHome": "ホームへ戻る",
+    "title": "ライブ情報",
+    "description": "アーティストの今後のライブ・イベント情報です。",
+    "loading": "読み込み中…",
+    "empty": "予定されているイベントはありません",
+    "artist": "アーティスト",
+    "interested": "気になる",
+    "going": "参加する",
+    "ticket": "チケット"
+  },
+  "Invite": {
+    "backHome": "ホームへ戻る",
+    "title": "友人を招待する",
+    "description": "リスナーでもアーティストでも、あなたのリンクから登録した友人が記録されます。特典はまだありません — RESONのネットワークを広げる目的のシンプルな紹介機能です。",
+    "loading": "読み込み中…",
+    "loginRequired": "招待リンクの取得にはログインが必要です",
+    "linkLabel": "あなたの招待リンク",
+    "copied": "コピー済み",
+    "copy": "コピー",
+    "invitedCount": "招待した人数",
+    "registeredAt": "{date} に登録"
+  },
+  "Notifications": {
+    "title": "通知",
+    "home": "ホームへ",
+    "loading": "読み込み中…",
+    "empty": "通知はありません",
+    "types": {
+      "follow": "フォローされました",
+      "like": "いいねされました",
+      "comment": "コメントされました",
+      "mention": "メンションされました",
+      "support": "応援されました",
+      "newTrack": "フォロー中のアーティストが新曲を配信開始しました",
+      "balanceThreshold": "残高が一定額を超えました",
+      "message": "メッセージが届きました",
+      "monthlyReport": "今月の分配レポートが確定しました"
+    }
+  },
+  "Parental": {
+    "title": "ペアレンタル決済",
+    "description": "未成年の方は、保護者のアカウントに決済（月額プラン）を紐付けることができます。プランはあなたのアカウントに付与され、支払いのみ保護者のカードで行われます。",
+    "loading": "読み込み中…",
+    "linked": "保護者のアカウントに紐付けが完了しています。",
+    "share": "以下のリンクを保護者に共有し、保護者のアカウントでログインした状態で開いてもらってください。",
+    "creating": "作成中…",
+    "create": "保護者への承認リンクを作成",
+    "backPricing": "料金プランへ戻る",
+    "approve": {
+      "title": "保護者による承認",
+      "invalid": "リンクが不正です",
+      "approved": "承認しました。以後の月額決済はあなたのアカウントで行われます。",
+      "rejected": "申請を却下しました。",
+      "description": "このリンクを開いたご本人（保護者）のアカウントに、未成年のアカウントの月額決済を紐付けます。以後、月額プランの支払いはこのアカウントのカードで行われます。",
+      "decline": "却下する",
+      "approve": "承認する",
+      "failed": "承認申請を更新できませんでした。もう一度お試しください。"
+    }
+  },
+  "Playlists": {
+    "title": "プレイリスト",
+    "home": "ホームへ",
+    "placeholder": "新しいプレイリスト名",
+    "creating": "作成中…",
+    "create": "作成",
+    "loading": "読み込み中…",
+    "empty": "まだプレイリストがありません",
+    "private": "非公開",
+    "createFailed": "プレイリストを作成できませんでした。もう一度お試しください。"
+  },
+  "PlaylistDetail": {
+    "loading": "読み込み中…",
+    "notFound": "プレイリストが見つかりません",
+    "back": "← プレイリスト一覧へ",
+    "delete": "削除する",
+    "searchLabel": "プレイリストに追加する楽曲を検索",
+    "searchPlaceholder": "楽曲名で検索して追加…",
+    "separator": "・",
+    "empty": "まだ曲がありません",
+    "unknownArtist": "不明",
+    "addQueueTitle": "キューへ追加",
+    "addQueue": "+キュー",
+    "addFailed": "プレイリストに楽曲を追加できませんでした。もう一度お試しください。"
+  },
+  "Messages": {
+    "title": "メッセージ",
+    "home": "ホームへ",
+    "userSearchLabel": "会話を始めるユーザーを検索",
+    "userSearchPlaceholder": "ユーザーを検索して開始…",
+    "anonymousUser": "名無しのユーザー",
+    "selectConversation": "会話を選択してください",
+    "separator": "・",
+    "removeAttachment": "添付した楽曲を外す",
+    "trackSearchLabel": "メッセージに添付する楽曲を検索",
+    "trackSearchPlaceholder": "曲を検索して貼付…",
+    "attachTrackTitle": "曲を貼付",
+    "bodyLabel": "メッセージ本文",
+    "bodyPlaceholder": "メッセージを入力…",
+    "send": "送信"
+  },
+  "Pricing": {
+    "title": "料金プラン",
+    "subtitle": "聴くほどアーティストへ還元される",
+    "success": "サブスクリプションの登録が完了しました 🎉",
+    "recommended": "おすすめ",
+    "free": "無料",
+    "price": "¥{amount}",
+    "perMonth": "/月",
+    "processing": "処理中…",
+    "subscribe": "{plan} に登録",
+    "student": {
+      "title": "Studentプラン認証",
+      "description": "学校発行の .ed.jp メールアドレスで本人確認が必要です",
+      "emailLabel": "学校発行のメールアドレス",
+      "sending": "送信中…",
+      "sendCode": "認証コードを送信",
+      "codeLabel": "Student認証コード",
+      "codePlaceholder": "6桁のコード",
+      "checking": "確認中…",
+      "confirm": "確認して登録へ進む",
+      "cancel": "キャンセル",
+      "requestFailed": "認証コードを送信できませんでした。学校のメールアドレスを確認してもう一度お試しください。",
+      "confirmFailed": "認証コードを確認できませんでした。コードを確認してもう一度お試しください。"
+    },
+    "manage": "プランの変更・解約はこちら",
+    "parental": "未成年の方はこちら（保護者の決済に紐付ける）",
+    "features": {
+      "monthly15": "月15時間まで",
+      "ads": "広告あり",
+      "standardQuality": "標準音質",
+      "unlimited": "無制限",
+      "noAds": "広告なし",
+      "supportButton": "応援ボタン",
+      "schoolEmail": ".ed.jpメール認証が必要",
+      "highQuality": "高音質",
+      "supportBonus": "応援ボーナス（重み1.3）",
+      "tipFee": "投げ銭手数料 3.6%のみ"
+    },
+    "transparency": {
+      "title": "分配の仕組み（透明性ポリシー）",
+      "paragraph1": "月額の75〜80%がアーティスト分配プールに入ります。再生時間・応援率・完聴率から「熱量スコア」を算出し、スコア比率で按分します。再生数ではなく<bold>熱量</bold>で分配するため、インディーズアーティストが有利です。",
+      "paragraph2": "応援率には❤️・投げ銭に加え、ブーストハート🚀（月3回まで無料・以降1回30円・月23回上限）が<bold>重み2倍</bold>で反映されます。ブーストの追加課金分（30円）はプール按分を経由せず、ブーストしたアーティストへ直接70%（21円）が渡ります。",
+      "plan": "プラン",
+      "weight": "再生重み",
+      "pool": "プールへの寄与",
+      "supportPool": "¥800/月",
+      "standardPool": "¥562/月",
+      "studentPool": "¥200/月",
+      "freePool": "¥42/月（広告収益）"
+    },
+    "requestFailed": "処理に失敗しました。もう一度お試しください。"
+  },
+  "TrackDetail": {
+    "loading": "読み込み中…",
+    "notFound": "楽曲が見つかりません",
+    "backHome": "← ホームへ",
+    "unknownArtist": "不明なアーティスト",
+    "foundingArtist": "創設アーティスト",
+    "album": "{album} に収録"
+  },
+  "Wrapped": {
+    "title": "{year}年のまとめ",
+    "home": "ホームへ",
+    "year": "{year}年",
+    "loading": "読み込み中…",
+    "empty": "{year}年はまだ再生記録がありません",
+    "duration": "{hours}時間{minutes}分",
+    "totalTime": "合計再生時間",
+    "plays": "再生回数",
+    "tracks": "曲",
+    "completed": "完聴",
+    "topArtists": "よく聴いたアーティスト",
+    "topTracks": "よく聴いた曲",
+    "playCount": "{count, number}回"
+  },
+  "Profile": {
+    "loadFailed": "プロフィールを取得できませんでした",
+    "bestLimit": "ランキングは{count}件までです",
+    "tagLimit": "音楽人格タグは10個までです",
+    "backHome": "ホームへ戻る",
+    "title": "音楽人格・プロフィール",
+    "description": "自分の音楽の好みをタグで表現できます（自己申告制）。",
+    "loading": "読み込み中…",
+    "retry": "再試行",
+    "displayName": "表示名",
+    "bio": "自己紹介",
+    "personaLabel": "音楽人格タグ（カンマ区切り・最大10個）",
+    "personaPlaceholder": "例: シティポップ, 夜更かし, ギターロック",
+    "suggestions": "聴取データからの提案（自己申告に追加するかはあなた次第です）",
+    "saved": "保存しました",
+    "saving": "保存中…",
+    "save": "保存する",
+    "rankingTitle": "ベストトラックランキング",
+    "rankingDescription": "好きな楽曲を最大{count}曲、ランキング形式で公開できます（Topster風プロフィール）。",
+    "searchLabel": "ベストトラックに追加する楽曲を検索",
+    "searchPlaceholder": "楽曲名で検索して追加…",
+    "separator": "・",
+    "emptyRanking": "まだランクインした楽曲がありません",
+    "saveRanking": "ランキングを保存する",
+    "saveFailed": "プロフィールを保存できませんでした",
+    "rankingSaveFailed": "ベストトラックランキングを保存できませんでした"
+  },
+  "PrivacyPage": {
+    "metadataTitle": "個人データの取扱い | RESON",
+    "missing": "未設定（EU向け提供前に記入が必要）",
+    "title": "個人データの取扱い",
+    "description": "RESONで扱う情報と、利用者が選べる設定・請求方法をご案内します。",
+    "operator": {
+      "title": "運営者と連絡先",
+      "name": "運営者: {value}",
+      "address": "所在地: {value}",
+      "contact": "個人データに関する連絡先: {value}",
+      "representative": "EU域内の代理人: {value}"
+    },
+    "data": {
+      "title": "情報の種類と利用目的",
+      "email": "メールアドレス・認証情報: アカウントの作成、ログイン、本人確認と連絡。",
+      "listening": "再生記録・応援記録: 再生サービス、分配計算、不正利用の調査。設定で許可した場合のみ、聴取履歴をおすすめと音楽人格タグの提案にも使用します。",
+      "social": "プロフィール、投稿、コメント、メッセージ: 利用者が選んだ交流機能の提供。公開した内容は他の利用者に見える場合があります。",
+      "payments": "購入・支払、アーティストの出金先: 決済、分配、会計と法令に基づく記録の管理。",
+      "minors": "未成年アーティストの保護者情報・学生認証情報: 申請審査と資格確認。",
+      "basis": "契約の履行、法的義務、不正防止の正当な利益、任意機能への同意など、目的に応じた根拠で取り扱います。任意の聴取履歴利用は設定からいつでも停止できます。"
+    },
+    "services": {
+      "title": "保存と外部サービス",
+      "providers": "認証・データ保存にSupabase、楽曲等の保存にCloudflare R2、決済にStripe、通知メールにResendを利用する構成です。各サービスの利用地域と契約内容は運営環境により変わります。",
+      "retention": "保存期間・削除基準: {value}",
+      "transfer": "EU域外への移転先と保護措置: {value}",
+      "browser": "ブラウザではログイン維持に必要なCookieと、画面テーマ・音量設定などの保存領域を使用します。広告や解析など非必須の端末保存を追加する際は、必要な同意を別途取得します。"
+    },
+    "rights": {
+      "title": "利用者の選択と請求",
+      "options": "公開範囲や任意の聴取履歴利用は<settings>設定</settings>から変更できます。開示、訂正、移転用コピー、削除、処理の制限・異議は、ログイン後の<requests>個人データ請求</requests>から申し出られます。",
+      "response": "請求内容と本人確認・保存義務を確認して回答します。原則として受け付けから1か月以内に回答し、対応できない場合は理由をお伝えします。監督機関に申し立てる権利もあります。"
+    }
+  },
+  "Settings": {
+    "title": "プライバシーと機能",
+    "fetchFailed": "設定を取得できませんでした。再読み込みしてください。",
+    "saveFailed": "保存に失敗しました。接続を確認してもう一度お試しください。",
+    "loading": "設定を読み込み中…",
+    "reload": "再読み込み",
+    "saving": "保存中…",
+    "description": "RESONの各機能について、参加するかどうかを選べます。",
+    "sections": {
+      "display": "表示",
+      "account": "アカウントの公開設定",
+      "social": "SNS機能",
+      "incoming": "受信の可否",
+      "support": "支援・クラファン機能",
+      "data": "データ・評価",
+      "privacy": "個人データの請求"
+    },
+    "display": {
+      "theme": "ライト / ダークモード",
+      "themeDesc": "ホーム画面など一部のページに適用されます"
+    },
+    "private": {
+      "label": "非公開アカウント",
+      "desc": "オンにすると、公開設定にかかわらずプロフィールと投稿を他の利用者から非表示にします。"
+    },
+    "social": {
+      "profile": {
+        "label": "プロフィールページ",
+        "desc": "音楽趣味・好きなアーティスト・遍歴を公開する"
+      },
+      "feed": {
+        "label": "音楽タイムライン（投稿）",
+        "desc": "楽曲投稿・アルバムレビュー・音楽日記・プレイリスト共有"
+      },
+      "follow": {
+        "label": "フォロー機能",
+        "desc": "ユーザー・アーティスト・プレイリスト制作者をフォローできる"
+      },
+      "matching": {
+        "label": "音楽マッチング",
+        "desc": "趣味が近いユーザーを発見・共通アーティスト表示"
+      },
+      "comment": {
+        "label": "コメント・レビュー",
+        "desc": "楽曲・アルバムへの感想・時間指定・考察コメント"
+      },
+      "community": {
+        "label": "コミュニティ参加",
+        "desc": "ジャンル別コミュニティへの投稿・参加"
+      },
+      "collection": {
+        "label": "音楽コレクション",
+        "desc": "人生アルバム・年間ベストなどを公開する"
+      }
+    },
+    "incoming": {
+      "follow": {
+        "label": "フォローリクエスト",
+        "desc": "誰からのフォローリクエストを受け取るか",
+        "aria": "フォローリクエストの受信範囲"
+      },
+      "dm": {
+        "label": "ダイレクトメッセージ",
+        "desc": "誰からのDMを受け取るか",
+        "aria": "ダイレクトメッセージの受信範囲"
+      },
+      "comments": {
+        "label": "コメント通知",
+        "desc": "自分の投稿へのコメント通知",
+        "aria": "コメント通知の受信範囲"
+      },
+      "likes": {
+        "label": "いいね・応援の通知"
+      },
+      "matching": {
+        "label": "マッチング提案",
+        "desc": "「音楽相性が近い人」のサジェスト通知"
+      },
+      "artist": {
+        "label": "アーティストの新着情報",
+        "desc": "フォロー中アーティストの投稿・イベント通知"
+      }
+    },
+    "options": {
+      "everyone": "全員",
+      "mutual": "相互フォロー",
+      "nobody": "誰も受け取らない",
+      "followers": "フォロワーのみ",
+      "doNotReceive": "受け取らない",
+      "on": "オン",
+      "off": "オフ",
+      "receive": "受け取る",
+      "all": "全て通知",
+      "important": "重要のみ"
+    },
+    "support": {
+      "history": {
+        "label": "応援・支援履歴の公開",
+        "desc": "支援したプロジェクト・アーティストをプロフィールに表示"
+      },
+      "exclusive": {
+        "label": "限定コンテンツの受信",
+        "desc": "支援者向けデモ音源・未公開曲・制作メモ"
+      },
+      "community": {
+        "label": "支援者コミュニティ参加",
+        "desc": "プロジェクトごとの支援者タブへの参加"
+      }
+    },
+    "data": {
+      "score": {
+        "label": "信頼度スコアの公開",
+        "desc": "新人発見数・レビュー評価などの指標を表示"
+      },
+      "listening": {
+        "label": "リスニングデータの利用",
+        "desc": "オンにした場合のみ、聴取履歴をおすすめと音楽人格タグの提案に利用します。いつでもオフにできます。再生・分配に必要な記録は継続します。"
+      }
+    },
+    "privacyCta": "開示・移転用コピー・削除などを請求する →",
+    "toggleAria": "{label}を切り替える"
+  },
+  "Dashboard": {
+    "loading": "読み込み中…",
+    "artistRequired": "アーティスト登録が必要です",
+    "register": "登録する",
+    "foundingArtist": "創設アーティスト",
+    "subtitle": "アーティストダッシュボード",
+    "supporters": "支援者",
+    "report": "レポート",
+    "upload": "+ アップロード",
+    "review": {
+      "pending": "審査中です。審査完了まで楽曲のアップロード・運用は可能ですが、配信開始には審査の承認が必要です。",
+      "rejected": "審査の結果、登録が承認されませんでした。詳細はサポートにお問い合わせください。"
+    },
+    "balance": {
+      "title": "未払い残高",
+      "schedule": "毎月末締め・翌月15日払い",
+      "minimum": "出金最低額は¥1,000（翌月へ繰り越し）",
+      "warning": "⚠️ 残高が50,000円を超えています。出金申請を行ってください。",
+      "pending": "出金申請受付済み（処理中）",
+      "requesting": "申請中…",
+      "request": "出金申請",
+      "requestFailed": "出金申請を送信できませんでした。もう一度お試しください。"
+    },
+    "payoutStatus": {
+      "pending": "処理中",
+      "paid": "支払済",
+      "rejected": "却下"
+    },
+    "score": {
+      "title": "{month} の熱量スコア",
+      "playTime": "再生時間スコア",
+      "playTimeDesc": "SUM(再生秒 × 重み係数 × 秒数係数) / 3600",
+      "support": "応援率",
+      "supportDesc": "応援数 / 有効再生数",
+      "completion": "完聴率",
+      "completionDesc": "完聴数 / 有効再生数",
+      "tips": "投げ銭収益（別計算）: ¥{amount, number}"
+    },
+    "historyTitle": "月次分配履歴",
+    "tracks": {
+      "title": "楽曲",
+      "empty": "まだ楽曲がありません",
+      "pending": "審査中",
+      "rejected": "却下",
+      "ai": "AI生成",
+      "notEligible": "分配対象外（{count, number}/100再生）",
+      "isrcMissing": "未登録",
+      "lyrics": "歌詞",
+      "plays": "{count, number}再生",
+      "saving": "保存中…",
+      "save": "保存する",
+      "close": "閉じる",
+      "lyricsPlaceholder": "歌詞を入力…",
+      "isrcPlaceholder": "例: US-RC1-76-07839",
+      "isrcSaveFailed": "ISRCを保存できませんでした。もう一度お試しください。"
+    },
+    "bank": {
+      "title": "出金先銀行口座",
+      "cancel": "キャンセル",
+      "edit": "編集する",
+      "description": "出金申請が承認されると、運営がこの口座情報を参照して毎月15日payoutで手動振込を行います（銀行APIとの自動連携は未実装のため、振込自体は人力オペレーションです）。",
+      "ordinary": "普通",
+      "checking": "当座",
+      "empty": "口座情報が登録されていません",
+      "bankName": "銀行名",
+      "branchName": "支店名",
+      "accountType": "口座種別",
+      "accountNumber": "口座番号",
+      "holderName": "口座名義",
+      "holderPlaceholder": "口座名義（カナ）",
+      "saved": "保存しました",
+      "saveFailed": "銀行口座を保存できませんでした。もう一度お試しください。"
+    },
+    "albums": {
+      "title": "アルバム",
+      "createOnUpload": "アップロード時に作成",
+      "empty": "まだアルバムがありません",
+      "unreleased": "未発表日"
+    },
+    "releaseType": {
+      "single": "シングル",
+      "ep": "EP",
+      "album": "アルバム"
+    },
+    "invite": "友人を招待する",
+    "pricing": "分配計算式はこちらで公開しています",
+    "metadata": {
+      "saveFailed": "作品情報を保存できませんでした。もう一度お試しください。"
+    }
+  },
+  "Upload": {
+    "validation": {
+      "audioFormat": "対応形式: MP3 / M4A / FLAC / WAV / OGG",
+      "audioSize": "ファイルサイズは{size}MB以内にしてください",
+      "imageFormat": "ジャケット画像はJPEG/PNG/WebP形式のみ対応しています",
+      "imageSize": "ジャケット画像は{size}MB以内にしてください",
+      "duration": "楽曲の長さを読み取れませんでした",
+      "uploadFailed": "ファイルのアップロードに失敗しました",
+      "requestFailed": "処理に失敗しました。もう一度お試しください。"
+    },
+    "status": {
+      "file": "ファイルをアップロード中…",
+      "cover": "ジャケット画像をアップロード中…",
+      "duplicate": "重複チェック中…",
+      "fingerprint": "重複楽曲を確認中…"
+    },
+    "aiMetadataWarning": "ファイルのメタデータからAI生成ツールが検出されたため、AI生成楽曲として自動登録しました。分配重み係数は 0.1 になります。",
+    "duplicateWarning": "この楽曲は既存の楽曲と非常に似ています（重複の可能性）。審査時に確認されます。track_id: {trackId}",
+    "title": "楽曲をアップロード",
+    "formats": "MP3 / M4A / FLAC / WAV / OGG（最大{size}MB）",
+    "reviewNote": "アップロード後、審査（著作権侵害・不正コンテンツの確認）を経て配信開始となります。審査中もダッシュボードから確認できます。",
+    "audioLabel": "楽曲ファイル",
+    "selectFile": "クリックしてファイルを選択",
+    "trackTitle": "タイトル",
+    "isrcLabel": "ISRC（任意）",
+    "isrcPlaceholder": "例: US-RC1-76-07839",
+    "isrcHelp": "既に取得済みのISRCがある場合のみ入力してください。未取得の場合は空欄でかまいません。",
+    "genreLabel": "ジャンルタグ（最大{count}個）",
+    "album": {
+      "label": "アルバム（任意）",
+      "none": "アルバムなし（シングル）",
+      "trackNumber": "アルバム内の曲順（任意）",
+      "trackNumberPlaceholder": "例: 1",
+      "cover": "アルバムジャケット（任意）",
+      "coverAria": "アルバムジャケット画像",
+      "coverUploading": "アップロード中…",
+      "coverUpdated": "ジャケットを更新しました（クリックで再度変更）",
+      "coverSet": "設定済み（クリックで変更）",
+      "coverSelect": "クリックしてアルバムのジャケット画像を設定",
+      "newTitle": "新しいアルバム名",
+      "releaseTypeAria": "新しいアルバムのリリース種別",
+      "creating": "作成中…",
+      "create": "作成"
+    },
+    "releaseType": {
+      "single": "シングル",
+      "ep": "EP",
+      "album": "アルバム"
+    },
+    "cover": {
+      "label": "ジャケット画像（任意）",
+      "aria": "楽曲ジャケット画像",
+      "select": "クリックして画像を選択（JPEG/PNG/WebP）"
+    },
+    "ai": {
+      "title": "AI生成楽曲",
+      "description": "AIが主体的に生成した楽曲は分配重みが 0.1 になります"
+    },
+    "uploading": "アップロード中…",
+    "upload": "アップロード"
+  },
+  "Admin": {
+    "checking": "確認中…",
+    "denied": "権限がありません",
+    "title": "審査ダッシュボード",
+    "privacy": "個人データ請求を確認する",
+    "tabs": {
+      "artists": "アーティスト審査",
+      "tracks": "楽曲審査",
+      "fraud": "不正検知",
+      "reports": "通報",
+      "payouts": "出金申請",
+      "founding": "創設アーティスト"
+    },
+    "artists": {
+      "empty": "審査待ちのアーティストはいません",
+      "minor": "未成年",
+      "approve": "承認",
+      "reject": "却下"
+    },
+    "tracks": {
+      "empty": "審査待ちの楽曲はありません",
+      "ai": "AI生成",
+      "unknown": "不明",
+      "approve": "承認",
+      "reject": "却下",
+      "rightsConfirmed": "権利確認済み",
+      "rightsNotConfirmed": "権利確認なし",
+      "source": "参照元",
+      "notEntered": "未入力",
+      "work": "作品",
+      "note": "メモ",
+      "credits": "クレジット"
+    },
+    "fraud": {
+      "empty": "未解決の不正検知フラグはありません",
+      "suspended": "配信停止中",
+      "unknownTrack": "不明な楽曲",
+      "resolve": "解決済みにする",
+      "resume": "解決して配信を再開"
+    },
+    "reports": {
+      "empty": "保留中の通報はありません",
+      "reviewed": "対応済み",
+      "dismissed": "問題なし"
+    },
+    "payouts": {
+      "empty": "審査待ちの出金申請はありません",
+      "unknown": "不明",
+      "paid": "支払済にする",
+      "reject": "却下"
+    },
+    "founding": {
+      "description": "アーティスト名で検索し、創設アーティストのバッジ付与/解除を行います（バッジのみ・分配重みへの反映は未実装）。",
+      "searchAria": "創設アーティストを検索",
+      "placeholder": "アーティスト名で検索…",
+      "search": "検索",
+      "badge": "★ 創設アーティスト",
+      "remove": "解除する",
+      "add": "バッジを付与"
+    }
+  },
+  "MusicMetadata": {
+    "sectionTitle": "作品・クレジット情報",
+    "sectionDescription": "原曲や参加者をタイトルと分けて登録し、検索や表示に使います。",
+    "edit": "作品情報",
+    "recordingType": "楽曲の種類",
+    "contentCategory": "関連コンテンツ",
+    "sourceTitle": "原曲・元作品名",
+    "sourceTitlePlaceholder": "例：楽曲名／原作タイトル",
+    "sourceArtistName": "原アーティスト名（任意）",
+    "sourceArtistNamePlaceholder": "例：原曲の作家・歌唱者",
+    "sourceWorkTitle": "作品・コンテンツ名",
+    "sourceWorkTitlePlaceholder": "例：作品名／ゲームタイトル／配信者名",
+    "sourceUrl": "参照URL（任意）",
+    "rightsStatus": "権利状態",
+    "rightsNotice": "この音源を配信するために必要な権利・許諾を確認済みです。RESONは権利許諾を代行しません。",
+    "rightsConfirmedOriginal": "自分または所属先が、この音源を配信するために必要な権利を保有していることを確認しました。",
+    "rightsRequired": "配信に必要な権利・許諾を確認してください。",
+    "rightsNote": "権利確認メモ",
+    "rightsNotePlaceholder": "運営審査向けの補足（任意）",
+    "credits": "参加者クレジット",
+    "creditsDescription": "feat.、ボーカル、作曲、イラストなどを登録できます。",
+    "creditRole": "クレジットの役割",
+    "creditName": "クレジット表示名",
+    "displayNamePlaceholder": "表示名（未登録の名前も可）",
+    "registeredArtist": "RESONアーティスト",
+    "remove": "削除",
+    "add": "追加",
+    "addCredit": "＋クレジットを追加",
+    "save": "作品情報を保存",
+    "saving": "保存中…",
+    "close": "閉じる",
+    "reReviewNote": "作品情報やクレジットを変更した楽曲は、表示内容を確認するため再審査になります。",
+    "recordingTypes": {
+      "original": "オリジナル",
+      "cover": "カバー",
+      "remix": "リミックス",
+      "arrangement": "アレンジ／替え歌",
+      "medley": "メドレー",
+      "live": "ライブ／配信音源",
+      "instrumental": "インストゥルメンタル"
+    },
+    "contentCategories": {
+      "none": "一般楽曲",
+      "anime": "アニメ",
+      "game": "ゲーム",
+      "visual_novel": "ノベルゲーム",
+      "vtuber": "VTuber／配信者",
+      "virtual_character": "バーチャルキャラクター",
+      "voice_synth": "音声合成・ボーカロイド",
+      "other": "その他の二次元コンテンツ"
+    },
+    "rightsStatuses": {
+      "original": "自作・権利保有",
+      "permission_obtained": "必要な許諾を確認済み",
+      "public_domain": "パブリックドメイン"
+    },
+    "creditRoles": {
+      "featured_artist": "フィーチャリング",
+      "vocalist": "ボーカル",
+      "composer": "作曲",
+      "lyricist": "作詞",
+      "arranger": "編曲",
+      "producer": "プロデュース",
+      "remixer": "リミックス",
+      "illustrator": "イラスト",
+      "character": "キャラクター",
+      "voice_actor": "声優・演者",
+      "original_artist": "原アーティスト"
+    }
+  }
+}

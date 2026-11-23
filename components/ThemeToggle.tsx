@@ -1,10 +1,12 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useTranslations } from 'next-intl'
 
 const THEME_STORAGE_KEY = 'reson_theme'
 
 export function ThemeToggle() {
+  const t = useTranslations('Theme')
   const [theme, setTheme] = useState<'dark' | 'light'>('dark')
 
   useEffect(() => {
@@ -22,7 +24,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggle}
-      title={theme === 'dark' ? 'ライトモードに切り替え' : 'ダークモードに切り替え'}
+      title={theme === 'dark' ? t('switchToLight') : t('switchToDark')}
       className="rounded-full border border-[var(--line)] p-2 text-sm text-[var(--dim)] hover:text-[var(--text)] hover:border-[var(--line-md)] transition"
     >
       {theme === 'dark' ? '☀️' : '🌙'}

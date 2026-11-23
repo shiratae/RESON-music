@@ -1,4 +1,5 @@
 import { requireAdmin } from '@/lib/admin/auth'
+import { normalizeTrackCredits } from '@/lib/music/credits'
 import { createServiceClient } from '@/lib/supabase/server'
 import { NextResponse } from 'next/server'
 
@@ -11,7 +12,13 @@ export async function GET() {
   const service = await createServiceClient()
   const { data, error } = await service
     .from('tracks')
-    .select('id, title, ai_generated, review_status, created_at, artists ( id, name )')
+    .select(`
+      id, title, ai_generated, review_status, created_at, recording_type, content_category,
+      source_title, source_artist_name, source_work_title, source_url, rights_status,
+      rights_confirmed, rights_note,
+      artists ( id, name ),
+      track_credits ( id, artist_id, display_name, role, display_order, artists ( id, name ) )
+    `)
     .eq('review_status', 'pending')
     .order('created_at', { ascending: true })
 
@@ -19,5 +26,10 @@ export async function GET() {
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 
-  return NextResponse.json({ tracks: data ?? [] })
+  const tracks = (data ?? []).map((track) => {
+    const { track_credits, ...rest } = track
+    return { ...rest, credits: normalizeTrackCredits(track_credits) }
+  })
+
+  return NextResponse.json({ tracks })
 }

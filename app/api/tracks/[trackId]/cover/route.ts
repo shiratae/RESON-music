@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
-import { getStreamUrl } from '@/lib/audio'
+import { getImageExt, getStreamObject } from '@/lib/audio'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(
@@ -19,6 +19,24 @@ export async function GET(
     return NextResponse.json({ error: 'ジャケット画像が登録されていません' }, { status: 404 })
   }
 
-  const url = await getStreamUrl(track.cover_r2_key)
-  return NextResponse.redirect(url, { status: 302 })
+  // R2 の署名付きURLをブラウザに渡さない。ジャケットはアプリ経由で配信し、
+  // URL単体での認可・監査迂回を防ぐ。
+  const object = await getStreamObject(track.cover_r2_key)
+  if (!object.Body || !getImageExt(object.ContentType ?? '')) {
+    return NextResponse.json({ error: '画像データを取得できませんでした' }, { status: 502 })
+  }
+
+  const headers = new Headers({
+    'Content-Type': object.ContentType!,
+    'Content-Disposition': 'inline',
+    'Cache-Control': 'private, max-age=300',
+    'X-Content-Type-Options': 'nosniff',
+    'Cross-Origin-Resource-Policy': 'same-origin',
+    'Referrer-Policy': 'same-origin',
+    'X-Robots-Tag': 'noindex, nofollow, noarchive',
+  })
+  if (object.ContentLength !== undefined) headers.set('Content-Length', String(object.ContentLength))
+  if (object.ETag) headers.set('ETag', object.ETag)
+
+  return new NextResponse(object.Body.transformToWebStream(), { headers })
 }

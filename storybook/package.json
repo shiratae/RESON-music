@@ -1,0 +1,20 @@
+{
+  "name": "reson-music-storybook",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "storybook dev -p 6006 -c .storybook",
+    "build": "storybook build -c .storybook -o storybook-static",
+    "test:a11y": "vitest run --project=storybook"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "10.6.3",
+    "@storybook/addon-vitest": "10.6.3",
+    "@storybook/nextjs-vite": "10.6.3",
+    "@vitest/browser-playwright": "4.1.11",
+    "playwright": "1.63.0",
+    "storybook": "10.6.3",
+    "vitest": "4.1.11"
+  }
+}

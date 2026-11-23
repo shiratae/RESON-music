@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+import { createClient, createServiceClient } from '@/lib/supabase/server'
 import { paymentProvider } from '@/lib/payment'
 import { NextRequest, NextResponse } from 'next/server'
 import type { UserPlan } from '@/lib/distribution'
@@ -19,6 +19,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: '認証が必要です' }, { status: 401 })
   }
 
+  const service = await createServiceClient()
   const { track_id, amount_yen } = await req.json()
 
   if (!track_id) {
@@ -42,12 +43,16 @@ export async function POST(req: NextRequest) {
 
   // ❤️のみ（amount_yen = 0 or 未指定）
   if (!amount_yen || amount_yen === 0) {
-    await supabase.from('supports').insert({
+    const { error } = await service.from('supports').insert({
       track_id,
       user_id: user.id,
       amount_yen: 0,
       track_plays_at_support: track.cumulative_plays,
+      funding_status: 'not_applicable',
     })
+    if (error) {
+      return NextResponse.json({ error: '応援の記録に失敗しました' }, { status: 500 })
+    }
     return NextResponse.json({ ok: true, type: 'heart' })
   }
 
@@ -61,15 +66,35 @@ export async function POST(req: NextRequest) {
   const plan = ((userData as { plan: string })?.plan ?? 'free') as UserPlan
   const feeRate = TIP_FEE_RATE[plan]
 
-  // Support+ は月間蓄積なので PaymentIntent は作らず DB に記録
+  // Support+ は「未回収の月次債務」として記録する。
+  // この時点では artist balance へ反映しない。Stripe invoice.paid を確認した後に
+  // DB内の settlement RPC が confirmed -> settlement -> ledger credit を原子的に行う。
   if (plan === 'support_plus') {
-    const { data: support } = await supabase
+    const billingPeriod = new Date().toISOString().slice(0, 7)
+    const { data: support, error } = await service
       .from('supports')
-      .insert({ track_id, user_id: user.id, amount_yen, track_plays_at_support: track.cumulative_plays })
+      .insert({
+        track_id,
+        user_id: user.id,
+        amount_yen,
+        track_plays_at_support: track.cumulative_plays,
+        plan_at_support: 'support_plus',
+        billing_period: billingPeriod,
+        funding_status: 'pending',
+      })
       .select('id')
       .single()
 
-    return NextResponse.json({ ok: true, type: 'tip_deferred', support_id: support?.id })
+    if (error) {
+      return NextResponse.json({ error: '応援の記録に失敗しました' }, { status: 500 })
+    }
+
+    return NextResponse.json({
+      ok: true,
+      type: 'tip_deferred',
+      support_id: support?.id,
+      billing_period: billingPeriod,
+    })
   }
 
   // 手数料込みの請求額

@@ -1,4 +1,4 @@
-import { S3Client, PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3'
+import { S3Client, PutObjectCommand, DeleteObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 
 export const r2 = new S3Client({
@@ -25,20 +25,36 @@ export function buildAlbumCoverR2Key(artistId: string, albumId: string, ext: str
 }
 
 /** アップロード用署名付きURL（5分有効） */
-export async function getUploadUrl(key: string, contentType: string) {
+export async function getUploadUrl(key: string, contentType: string, contentLength: number) {
   const cmd = new PutObjectCommand({
     Bucket: BUCKET,
     Key: key,
     ContentType: contentType,
+    // Content-Length becomes a signed header. R2 rejects a body with a
+    // different size, preventing a presigned URL from being used for an
+    // unbounded upload.
+    ContentLength: contentLength,
   })
   return getSignedUrl(r2, cmd, { expiresIn: 300 })
 }
 
 /** 再生用署名付きURL（1時間有効） */
 export async function getStreamUrl(key: string) {
-  const { GetObjectCommand } = await import('@aws-sdk/client-s3')
   const cmd = new GetObjectCommand({ Bucket: BUCKET, Key: key })
   return getSignedUrl(r2, cmd, { expiresIn: 3600 })
+}
+
+/**
+ * R2 の音声をサーバーから中継する。署名付き URL をブラウザへ渡さないため、
+ * URL 単体をコピーしての取得を防げる。
+ */
+export async function getStreamObject(key: string, range?: string) {
+  const cmd = new GetObjectCommand({
+    Bucket: BUCKET,
+    Key: key,
+    ...(range ? { Range: range } : {}),
+  })
+  return r2.send(cmd)
 }
 
 export async function deleteObject(key: string) {

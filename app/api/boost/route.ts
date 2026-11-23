@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+import { createClient, createServiceClient } from '@/lib/supabase/server'
 import { paymentProvider } from '@/lib/payment'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -41,6 +41,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: '認証が必要です' }, { status: 401 })
   }
 
+  const service = await createServiceClient()
   const { track_id } = await req.json()
   if (!track_id) {
     return NextResponse.json({ error: 'track_id は必須です' }, { status: 400 })
@@ -65,7 +66,7 @@ export async function POST(req: NextRequest) {
 
   // 無料分が残っている場合は即時記録
   if (used < FREE_BOOSTS_PER_MONTH) {
-    const { error } = await supabase.from('boost_hearts').insert({
+    const { error } = await service.from('boost_hearts').insert({
       track_id,
       user_id: user.id,
       year_month: yearMonth,
@@ -96,7 +97,7 @@ export async function POST(req: NextRequest) {
       metadata: { type: 'boost', track_id, user_id: user.id, year_month: yearMonth },
     })
 
-    const { error } = await supabase.from('boost_hearts').insert({
+    const { error } = await service.from('boost_hearts').insert({
       track_id,
       user_id: user.id,
       year_month: yearMonth,

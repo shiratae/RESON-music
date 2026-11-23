@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
+import { normalizeTrackCredits } from '@/lib/music/credits'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ playlistId: string }> }) {
@@ -17,13 +18,27 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ play
 
   const { data: rows } = await supabase
     .from('playlist_tracks')
-    .select('position, track_id, tracks ( id, title, duration_sec, ai_generated, artists ( id, name ) )')
+    .select(`
+      position, track_id,
+      tracks (
+        id, title, duration_sec, ai_generated,
+        artists ( id, name ),
+        track_credits ( id, artist_id, display_name, role, display_order, artists ( id, name ) )
+      )
+    `)
     .eq('playlist_id', playlistId)
     .order('position', { ascending: true })
 
   const { data: { user } } = await supabase.auth.getUser()
 
-  return NextResponse.json({ playlist, tracks: rows ?? [], is_owner: user?.id === playlist.user_id })
+  const tracks = (rows ?? []).map((row) => {
+    const joinedTrack = Array.isArray(row.tracks) ? row.tracks[0] : row.tracks
+    if (!joinedTrack) return row
+    const { track_credits, ...track } = joinedTrack
+    return { ...row, tracks: { ...track, credits: normalizeTrackCredits(track_credits) } }
+  })
+
+  return NextResponse.json({ playlist, tracks, is_owner: user?.id === playlist.user_id })
 }
 
 export async function PATCH(req: NextRequest, { params }: { params: Promise<{ playlistId: string }> }) {

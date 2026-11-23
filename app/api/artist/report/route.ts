@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
+import { normalizeTrackCredits } from '@/lib/music/credits'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(req: NextRequest) {
@@ -32,7 +33,12 @@ export async function GET(req: NextRequest) {
       .single(),
     supabase
       .from('tracks')
-      .select('id, title, cumulative_plays, in_distribution, ai_generated, review_status, isrc')
+      .select(`
+        id, title, cumulative_plays, in_distribution, ai_generated, review_status, isrc,
+        recording_type, content_category, source_title, source_artist_name, source_work_title,
+        source_url, rights_status, rights_confirmed, rights_note,
+        track_credits ( id, artist_id, display_name, role, display_order, artists ( id, name ) )
+      `)
       .eq('artist_id', artist.id)
       .order('cumulative_plays', { ascending: false }),
   ])
@@ -41,6 +47,9 @@ export async function GET(req: NextRequest) {
     artist,
     balance: balanceRes.data ?? { balance_yen: 0, dormant: false },
     distributions: distributionsRes.data ?? [],
-    tracks: tracksRes.data ?? [],
+    tracks: (tracksRes.data ?? []).map((track) => {
+      const { track_credits, ...rest } = track
+      return { ...rest, credits: normalizeTrackCredits(track_credits) }
+    }),
   })
 }

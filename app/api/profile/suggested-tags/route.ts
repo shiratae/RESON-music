@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { NextResponse } from 'next/server'
+import { hasListeningDataOptIn } from '@/lib/privacy/settings'
 
 const TOP_N = 5
 
@@ -11,6 +12,9 @@ export async function GET() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) {
     return NextResponse.json({ error: '認証が必要です' }, { status: 401 })
+  }
+  if (!await hasListeningDataOptIn(supabase, user.id)) {
+    return NextResponse.json({ suggested_tags: [] })
   }
 
   const { data: events } = await supabase

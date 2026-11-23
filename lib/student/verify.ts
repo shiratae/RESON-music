@@ -1,3 +1,5 @@
+import { createHash, randomInt } from 'crypto'
+
 // Studentプラン（.ed.jp認証）の純粋ロジック（テスト対象）
 
 export function isEdJpEmail(email: string): boolean {
@@ -5,7 +7,12 @@ export function isEdJpEmail(email: string): boolean {
 }
 
 export function generateVerificationCode(): string {
-  return String(Math.floor(100000 + Math.random() * 900000))
+  // Math.random is not suitable for an authentication challenge.
+  return String(randomInt(100000, 1_000_000))
+}
+
+export function hashVerificationCode(code: string): string {
+  return createHash('sha256').update(code).digest('hex')
 }
 
 const CODE_TTL_MINUTES = 10

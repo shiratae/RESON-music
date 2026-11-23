@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import { rankTracksByHeat, calcArtistAffinity, applyAffinityBoost } from '@/lib/distribution'
 import { fetchHeatScoredCandidates } from '@/lib/distribution/heat-candidates'
 import { NextResponse } from 'next/server'
+import { hasListeningDataOptIn } from '@/lib/privacy/settings'
 
 const LIMIT = 10
 const HISTORY_WINDOW_DAYS = 90
@@ -15,6 +16,23 @@ export async function GET() {
 
   if (scores.length === 0) {
     return NextResponse.json({ tracks: [] })
+  }
+
+  if (!await hasListeningDataOptIn(supabase, user.id)) {
+    const ranked = rankTracksByHeat(scores, LIMIT)
+    return NextResponse.json({
+      tracks: ranked.map((score) => {
+        const track = trackById.get(score.track_id)
+        return track ? {
+          id: track.id, title: track.title, duration_sec: track.duration_sec,
+          ai_generated: track.ai_generated, cumulative_plays: track.cumulative_plays,
+          artists: track.artists, completion_rate: score.completion_rate,
+          support_rate: score.support_rate, heat_score: score.raw_score,
+          because_you_like: false,
+        } : null
+      }).filter((track) => track !== null),
+      personalized: false,
+    })
   }
 
   // ユーザー自身の再生履歴からアーティストへの親和度を算出

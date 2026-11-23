@@ -1,0 +1,63 @@
+name: SBOM
+
+on:
+  pull_request:
+  push:
+    branches:
+      - claude/new-session-b6um0m
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sbom-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  generate:
+    name: Generate and validate SBOM
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Generate SBOM from package-lock.json
+        run: npm run sbom
+
+      - name: Validate SBOM files
+        run: |
+          node <<'NODE'
+          const fs = require("node:fs");
+
+          const cyclonedx = JSON.parse(fs.readFileSync("sbom.cdx.json", "utf8"));
+          if (cyclonedx.bomFormat !== "CycloneDX" || !Array.isArray(cyclonedx.components)) {
+            throw new Error("Invalid CycloneDX SBOM");
+          }
+
+          const spdx = JSON.parse(fs.readFileSync("sbom.spdx.json", "utf8"));
+          if (!String(spdx.spdxVersion || "").startsWith("SPDX-") || !Array.isArray(spdx.packages)) {
+            throw new Error("Invalid SPDX SBOM");
+          }
+
+          console.log(`CycloneDX components: ${cyclonedx.components.length}`);
+          console.log(`SPDX packages: ${spdx.packages.length}`);
+          NODE
+
+      - name: Upload SBOM artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-${{ github.sha }}
+          path: |
+            sbom.cdx.json
+            sbom.spdx.json
+          if-no-files-found: error
+          retention-days: 30
