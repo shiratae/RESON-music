@@ -1,0 +1,13 @@
+# Free Qodana Community edition: inspect supported YAML/JSON/Shell and similar files.
+# This linter does NOT analyze the application's JavaScript or TypeScript.
+version: "1.0"
+linter: jetbrains/qodana-python-community:2026.2
+profile:
+  name: qodana.starter
+exclude:
+  - name: All
+    paths:
+      - node_modules/**/*
+      - .next/**/*
+      - coverage/**/*
+      - out/**/*
